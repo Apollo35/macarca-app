@@ -1,0 +1,122 @@
+[
+  {
+    "id": "greetings-001",
+    "category": "greetings",
+    "turkish": "Merhaba / Selam",
+    "hungarian": "Szia",
+    "note": "Informal, tek kişiye — hem \"merhaba\" hem \"güle güle\"",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-002",
+    "category": "greetings",
+    "turkish": "Merhaba (hepinize)",
+    "hungarian": "Sziasztok",
+    "note": "Informal, birden fazla kişiye",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-003",
+    "category": "greetings",
+    "turkish": "İyi günler",
+    "hungarian": "Jó napot kívánok",
+    "note": "Formal",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-004",
+    "category": "greetings",
+    "turkish": "Günaydın",
+    "hungarian": "Jó reggelt (kívánok)",
+    "note": "",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-005",
+    "category": "greetings",
+    "turkish": "İyi akşamlar",
+    "hungarian": "Jó estét (kívánok)",
+    "note": "",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-006",
+    "category": "greetings",
+    "turkish": "İyi geceler",
+    "hungarian": "Jó éjszakát",
+    "note": "Formal/informal her ikisinde de kullanılır",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-007",
+    "category": "greetings",
+    "turkish": "Hoşça kalın",
+    "hungarian": "Viszontlátásra",
+    "note": "Formal veda",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-008",
+    "category": "greetings",
+    "turkish": "Teşekkür ederim",
+    "hungarian": "Köszönöm",
+    "note": "",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-009",
+    "category": "greetings",
+    "turkish": "Çok teşekkür ederim",
+    "hungarian": "Köszönöm szépen",
+    "note": "",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-010",
+    "category": "greetings",
+    "turkish": "Rica ederim",
+    "hungarian": "Szívesen",
+    "note": "",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-011",
+    "category": "greetings",
+    "turkish": "Lütfen / Rica ederim",
+    "hungarian": "Kérem",
+    "note": "Bağlama göre değişir",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-012",
+    "category": "greetings",
+    "turkish": "Affedersiniz",
+    "hungarian": "Elnézést",
+    "note": "Dikkat çekmek/özür için",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-013",
+    "category": "greetings",
+    "turkish": "Pardon / Özür dilerim",
+    "hungarian": "Bocsánat",
+    "note": "",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-014",
+    "category": "greetings",
+    "turkish": "Nasılsın?",
+    "hungarian": "Hogy vagy?",
+    "note": "Informal",
+    "type": "vocabulary"
+  },
+  {
+    "id": "greetings-015",
+    "category": "greetings",
+    "turkish": "İyiyim",
+    "hungarian": "Jól vagyok",
+    "note": "",
+    "type": "vocabulary"
+  }
+]
