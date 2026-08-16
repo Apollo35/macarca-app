@@ -1,122 +1,232 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import vocabulary from "./data/vocabulary.json";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [screen, setScreen] = useState("home");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const categories = [...new Set(vocabulary.map((item) => item.category))];
+
+  const openVocabulary = () => {
+    setScreen("vocabulary");
+  };
+
+  const openCategory = (category) => {
+    setSelectedCategory(category);
+    setScreen("category");
+  };
+
+  const goHome = () => {
+    setScreen("home");
+    setSelectedCategory(null);
+  };
+
+  const goBack = () => {
+    if (screen === "category") {
+      setScreen("vocabulary");
+      setSelectedCategory(null);
+      return;
+    }
+
+    if (screen === "vocabulary") {
+      goHome();
+    }
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app">
+      <header className="top-bar">
+        {screen !== "home" && (
+          <button
+            className="back-button"
+            type="button"
+            onClick={goBack}
+            aria-label="Geri"
+          >
+            ←
+          </button>
+        )}
 
-      <div className="ticks"></div>
+        <h1>Macarca</h1>
+      </header>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      <main className="main-content">
+        {screen === "home" && <Home onOpenVocabulary={openVocabulary} />}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        {screen === "vocabulary" && (
+          <Vocabulary categories={categories} onSelectCategory={openCategory} />
+        )}
+
+        {screen === "category" && (
+          <Category category={selectedCategory} vocabulary={vocabulary} />
+        )}
+      </main>
+
+      <BottomNavigation
+        activeScreen={screen}
+        onHome={goHome}
+        onVocabulary={openVocabulary}
+      />
+    </div>
+  );
 }
 
-export default App
+function Home({ onOpenVocabulary }) {
+  return (
+    <>
+      <section className="welcome-section">
+        <h2>Jó reggelt!</h2>
+        <p>Neler öğrenmek istersin?</p>
+      </section>
+
+      <nav className="home-navigation">
+        <NavigationCard
+          icon="📖"
+          title="Kelime Kartları"
+          description="Yeni kelimeler öğren ve kelime dağarcığını geliştir."
+          onClick={onOpenVocabulary}
+        />
+
+        <NavigationCard
+          icon="💬"
+          title="Günlük Cümleler"
+          description="Sık kullanılan pratik ifadeleri keşfet."
+          disabled
+        />
+
+        <NavigationCard
+          icon="?"
+          title="Pratik / Tekrar"
+          description="Öğrendiklerini pekiştir ve kendini test et."
+          disabled
+        />
+      </nav>
+    </>
+  );
+}
+
+function NavigationCard({
+  icon,
+  title,
+  description,
+  onClick,
+  disabled = false,
+}) {
+  return (
+    <button
+      className={`navigation-card ${disabled ? "is-disabled" : ""}`}
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+    >
+      <span className="navigation-icon">{icon}</span>
+
+      <span className="navigation-content">
+        <strong>{title}</strong>
+        <span>{description}</span>
+      </span>
+
+      <span className="navigation-arrow">›</span>
+    </button>
+  );
+}
+
+function Vocabulary({ categories, onSelectCategory }) {
+  return (
+    <section>
+      <div className="page-heading">
+        <span className="eyebrow">KELİMELER</span>
+        <h2>Kelime Kartları</h2>
+        <p>Öğrenmek istediğin kategoriyi seç.</p>
+      </div>
+
+      <div className="category-list">
+        {categories.map((category) => (
+          <button
+            className="category-card"
+            key={category}
+            type="button"
+            onClick={() => onSelectCategory(category)}
+          >
+            <span>
+              <strong>Greetings & Introductions</strong>
+              <small>15 kelime</small>
+            </span>
+
+            <span className="navigation-arrow">›</span>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Category({ category, vocabulary }) {
+  const items = vocabulary.filter((item) => item.category === category);
+
+  return (
+    <section>
+      <div className="page-heading">
+        <span className="eyebrow">KATEGORİ</span>
+        <h2>Greetings & Introductions</h2>
+        <p>{items.length} kelime ve ifade</p>
+      </div>
+
+      <div className="word-list">
+        {items.map((item) => (
+          <article className="word-item" key={item.id}>
+            <div>
+              <span className="word-turkish">{item.turkish}</span>
+              <span className="word-hungarian">{item.hungarian}</span>
+
+              {item.note && <span className="word-note">{item.note}</span>}
+            </div>
+
+            <span className="navigation-arrow">›</span>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function BottomNavigation({ activeScreen, onHome, onVocabulary }) {
+  return (
+    <nav className="bottom-navigation">
+      <button
+        className={activeScreen === "home" ? "active" : ""}
+        type="button"
+        onClick={onHome}
+      >
+        <span>⌂</span>
+        <small>Ana Sayfa</small>
+      </button>
+
+      <button
+        className={
+          activeScreen === "vocabulary" || activeScreen === "category"
+            ? "active"
+            : ""
+        }
+        type="button"
+        onClick={onVocabulary}
+      >
+        <span>📖</span>
+        <small>Kelimeler</small>
+      </button>
+
+      <button type="button" disabled>
+        <span>?</span>
+        <small>Tekrar</small>
+      </button>
+
+      <button type="button" disabled>
+        <span>○</span>
+        <small>Profil</small>
+      </button>
+    </nav>
+  );
+}
+
+export default App;
